@@ -4,8 +4,6 @@ const port = 3000
 
 const coworkingsData = require('./coworkings')
 
-console.log(coworkingsData[4])
-
 app.get('/', (req, res) => {
     res.send('Hello World!')
 })
@@ -31,7 +29,15 @@ app.get('/api/coworkings', (req, res) => {
 })
 
 app.get('/api/coworkings/:id', (req, res) => {
-    res.send(`Salut utilisateur n°${req.params.id}`)
+    console.log(req.params.id)
+    // 12
+    // Nom du coworking n°12 : Oasis Coworking
+    const result = coworkingsData.find((el) => {
+        return el.id === parseInt(req.params.id)
+    })
+
+    console.log(result)
+    res.send(`Nom du coworking n°${result.id} : ${result.name}`)
 })
 
 app.listen(port, () => {
