@@ -36,7 +36,7 @@ app.get('/api/coworkings/:id', (req, res) => {
 
     const msg = result ? `Nom du coworking n°${result.id} : ${result.name}` : `Le coworking recherché n'existe pas`
 
-    res.send({ message: msg })
+    res.json({ message: msg })
 })
 
 app.listen(port, () => {
