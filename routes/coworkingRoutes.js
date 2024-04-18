@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const coworkingsData = require('../coworkings')
+let coworkingsData = require('../coworkings')
 
 router
     .route('/')
@@ -37,6 +37,16 @@ router
 
         result.superficy = req.body.superficy
         res.json({ message: 'Le coworking a bien été modifié', data: result })
+    })
+    .delete((req, res) => {
+        // on identifie la bonne ligne du tableau et on supprime l'élément s'il existe
+        let filteredArray = coworkingsData.filter(el => {
+            return el.id !== parseInt(req.params.id)
+        })
+
+        coworkingsData = filteredArray
+
+        res.json({ message: 'delete coworking' })
     })
 
 module.exports = router
