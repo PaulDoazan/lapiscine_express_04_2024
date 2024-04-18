@@ -3,8 +3,20 @@ const app = express()
 const port = 3000
 
 const coworkingsData = require('./coworkings')
+// const isAuthenticated = false
 
-// convertir les réponses au format json : {message: ""}
+app.use((req, res, next) => {
+    const now = new Date()
+    console.log(`${now.getHours()}h${now.getMinutes()}min${now.getSeconds()}s`)
+
+    next()
+    // if (isAuthenticated) {
+    //     next()
+    // } else {
+    //     res.json({ message: "Vous n'êtes pas authentifié" })
+    // }
+})
+
 app.get('/', (req, res) => {
     res.json({ message: 'Hello World!' })
 })
