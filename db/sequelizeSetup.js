@@ -1,5 +1,6 @@
 // CONFIG DB
 const { Sequelize } = require('sequelize');
+const CoworkingModel = require('../models/coworkingModel')
 
 // Option: Passing parameters separately (other dialects)
 const sequelize = new Sequelize('bx_coworkings', 'root', '', {
@@ -7,6 +8,9 @@ const sequelize = new Sequelize('bx_coworkings', 'root', '', {
     dialect: 'mariadb',
     logging: false
 });
+
+CoworkingModel(sequelize)
+sequelize.sync({ force: true });
 
 sequelize.authenticate()
     .then(() => console.log('La connexion à la base de données a bien été établie.'))
