@@ -9,7 +9,9 @@
   "author": "Paul Doazan",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "mariadb": "^3.3.0",
+    "sequelize": "^6.37.3"
   },
   "devDependencies": {
     "morgan": "^1.10.0",

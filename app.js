@@ -3,6 +3,19 @@ const morgan = require('morgan')
 const app = express()
 const port = 3000
 
+const { sequelize } = require("./db/sequelizeSetup")
+
+// DESTRUCTURATION D'OBJET, très souvent utilisé dans import/export de variable d'un fichier à l'autre
+const myObj = {
+    country: { name: "FRANCE", code: "FR" },
+    town: "Bordeaux"
+}
+
+const { country } = myObj
+const { town } = myObj
+
+console.log(country, town)
+
 app
     .use(morgan('dev'))
     .use(express.json())
