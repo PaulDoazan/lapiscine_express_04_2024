@@ -2,20 +2,18 @@ const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
     return sequelize.define(
-        'User',
+        'Coworking',
         {
             // Model attributes are defined here
-            firstName: {
+            name: {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
-            lastName: {
-                type: DataTypes.STRING,
-                // allowNull defaults to true
+            superficy: {
+                type: DataTypes.INTEGER,
             },
-            address: {
-                type: DataTypes.STRING,
-                // allowNull defaults to true
+            capacity: {
+                type: DataTypes.INTEGER,
             },
         },
         {
