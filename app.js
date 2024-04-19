@@ -16,6 +16,11 @@ const { town } = myObj
 
 console.log(country, town)
 
+// import de fonction :
+const { myFunction } = require('./db/sequelizeSetup')
+
+myFunction('Paul')
+
 app
     .use(morgan('dev'))
     .use(express.json())

@@ -13,4 +13,8 @@ sequelize.authenticate()
     .catch(error => console.error(`Impossible de se connecter à la base de données ${error}`))
 // 
 
-module.exports = { sequelize }
+const myFunction = (name) => {
+    console.log('hello ' + name)
+}
+
+module.exports = { sequelize, myFunction }
