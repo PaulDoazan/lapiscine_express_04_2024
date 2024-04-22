@@ -5,8 +5,13 @@ const { Coworking } = require('../db/sequelizeSetup')
 
 router
     .route('/')
-    .get((req, res) => {
-        res.json({ message: `Il y a ${coworkingsData.length} coworkings`, data: coworkingsData })
+    .get(async (req, res) => {
+        try {
+            const results = await Coworking.findAll()
+            res.json({ message: `Il y a ${results.length} coworkings`, data: results })
+        } catch (error) {
+            res.json({ message: `Une erreur est survenue` })
+        }
     })
     .post(async (req, res) => {
         try {
@@ -19,14 +24,16 @@ router
 
 router
     .route('/:id')
-    .get((req, res) => {
-        const result = coworkingsData.find((el) => {
-            return el.id === parseInt(req.params.id)
-        })
-
-        const msg = result ? `Nom du coworking n°${result.id} : ${result.name}` : `Le coworking recherché n'existe pas`
-
-        res.json({ message: msg, data: result })
+    .get(async (req, res) => {
+        try {
+            const result = await Coworking.findByPk(req.params.id);
+            if (!result) {
+                return res.json({ message: `Le coworking n'existe pas` })
+            }
+            res.json({ message: 'Coworking trouvé', data: result })
+        } catch (error) {
+            res.json({ message: `Une erreur est survenue` })
+        }
     })
     .put((req, res) => {
         const result = coworkingsData.find((el) => {
@@ -50,7 +57,7 @@ router
 
         coworkingsData.splice(index, 1)
 
-        res.json({ message: 'delete coworking', data: coworkingsData })
+        res.json({ message: 'Suppression coworking', data: coworkingsData })
     })
 
 module.exports = router

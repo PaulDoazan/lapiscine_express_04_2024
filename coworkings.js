@@ -1,6 +1,5 @@
 const coworkings = [
     {
-
         name: "Imagin'Office",
         price: { "hour": null, "day": 25, "month": 199 },
         address: { "number": "7", "street": "place des Citernes", "postCode": 33800, "city": "Bordeaux" },
@@ -59,7 +58,6 @@ const coworkings = [
         created: new Date()
     },
     {
-
         name: "Digital Village",
         price: { "hour": null, "day": 30, "month": null },
         address: { "number": "88", "street": "rue Judaïque", "postCode": 33000, "city": "Bordeaux" },

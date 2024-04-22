@@ -21,7 +21,6 @@ app.use('/api/coworkings', coworkingRouter)
 app.use('/api/users', userRouter)
 app.use('/api/reviews', reviewRouter)
 
-
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 })
