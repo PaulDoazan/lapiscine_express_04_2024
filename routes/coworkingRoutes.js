@@ -35,13 +35,17 @@ router
             res.json({ message: `Une erreur est survenue` })
         }
     })
-    .put((req, res) => {
-        const result = coworkingsData.find((el) => {
-            return el.id === parseInt(req.params.id)
-        })
-
-        result.superficy = req.body.superficy
-        res.json({ message: 'Le coworking a bien été modifié', data: result })
+    .put(async (req, res) => {
+        try {
+            const result = await Coworking.findByPk(req.params.id);
+            if (!result) {
+                return res.json({ message: `Le coworking n'existe pas` })
+            }
+            result.update(req.body)
+            res.json({ message: 'Coworking modifié', data: result })
+        } catch (error) {
+            res.json({ message: `Une erreur est survenue` })
+        }
     })
     .delete((req, res) => {
         // on identifie la bonne ligne du tableau et on supprime l'élément s'il existe
