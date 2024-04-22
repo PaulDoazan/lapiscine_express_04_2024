@@ -20,6 +20,7 @@ const coworkings = [
         created: new Date()
     },
     {
+        name: "Oasis",
         price: { "hour": 4, "day": 21, "month": 100 },
         address: { "number": "68bis", "street": "avenue Jean Jaurès", "postCode": 33150, "city": "Cenon" },
         picture: "",

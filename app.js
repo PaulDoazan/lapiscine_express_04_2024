@@ -1,7 +1,7 @@
 const express = require('express')
 const morgan = require('morgan')
 const app = express()
-const port = 3000
+const port = 5000
 
 require("./db/sequelizeSetup")
 
