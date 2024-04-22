@@ -10,8 +10,11 @@ const sequelize = new Sequelize('bx_coworkings', 'root', '', {
     logging: false
 });
 
-const Coworking = CoworkingModel(sequelize)
+const Coworking = CoworkingModel(sequelize);
 
+// (() => {
+
+// })()
 sequelize.sync({ force: true })
     .then(() => {
         mockCoworkings.forEach(coworking => {
