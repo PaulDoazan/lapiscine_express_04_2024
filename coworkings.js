@@ -1,6 +1,6 @@
 const coworkings = [
     {
-        name: "Imagin'Office",
+        name: "Good Cowork",
         price: { "hour": null, "day": 25, "month": 199 },
         address: { "number": "7", "street": "place des Citernes", "postCode": 33800, "city": "Bordeaux" },
         picture: "",
