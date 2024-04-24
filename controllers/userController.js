@@ -1,4 +1,5 @@
 const { User } = require("../db/sequelizeSetup")
+const bcrypt = require('bcrypt');
 const { errorValidationConstraint } = require("../errorHandler/errorValidationConstraint")
 
 const findAllUsers = (req, res) => {
@@ -11,6 +12,8 @@ const findUserByPk = (req, res) => {
 
 const createUser = async (req, res) => {
     try {
+        const hashPassword = await bcrypt.hash(req.body.password, 10)
+        req.body.password = hashPassword
         const result = await User.create(req.body)
         res.json({ message: `Utilisateur créé`, data: result })
     } catch (error) {

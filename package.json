@@ -9,6 +9,7 @@
   "author": "Paul Doazan",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "express": "^4.19.2",
     "mariadb": "^3.3.0",
     "sequelize": "^6.37.3"
