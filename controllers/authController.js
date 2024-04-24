@@ -19,7 +19,7 @@ const login = async (req, res) => {
         }
 
         // Si correct, on envoie un message "login réussi"
-        res.json({ message: "Login réussi" })
+        res.cookie("access_token", "monpetitcookie").json({ message: "Login réussi" })
     } catch (error) {
         res.status(500).json({ message: `Une erreur est survenue` })
     }
