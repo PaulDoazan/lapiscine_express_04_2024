@@ -2,7 +2,8 @@
 const { Sequelize } = require('sequelize');
 const CoworkingModel = require('../models/coworkingModel')
 const UserModel = require('../models/userModel')
-const mockCoworkings = require('../coworkings')
+const mockCoworkings = require('./coworkings');
+const mockUsers = require('./users');
 
 // Option: Passing parameters separately (other dialects)
 const sequelize = new Sequelize('bx_coworkings', 'root', '', {
@@ -18,6 +19,13 @@ sequelize.sync({ force: true })
     .then(() => {
         mockCoworkings.forEach(coworking => {
             Coworking.create(coworking)
+                .then()
+                .catch(error => {
+                    console.log(error)
+                })
+        })
+        mockUsers.forEach(user => {
+            User.create(user)
                 .then()
                 .catch(error => {
                     console.log(error)
