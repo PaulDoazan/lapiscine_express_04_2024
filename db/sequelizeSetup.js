@@ -1,9 +1,11 @@
 // CONFIG DB
 const { Sequelize } = require('sequelize');
+const bcrypt = require('bcrypt')
 const CoworkingModel = require('../models/coworkingModel')
 const UserModel = require('../models/userModel')
 const mockCoworkings = require('./coworkings');
 const mockUsers = require('./users');
+
 
 // Option: Passing parameters separately (other dialects)
 const sequelize = new Sequelize('bx_coworkings', 'root', '', {
@@ -24,7 +26,9 @@ sequelize.sync({ force: true })
                     console.log(error)
                 })
         })
-        mockUsers.forEach(user => {
+        mockUsers.forEach(async user => {
+            const hash = await bcrypt.hash(user.password, 10)
+            user.password = hash
             User.create(user)
                 .then()
                 .catch(error => {
