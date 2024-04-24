@@ -1,6 +1,7 @@
 // CONFIG DB
 const { Sequelize } = require('sequelize');
 const CoworkingModel = require('../models/coworkingModel')
+const UserModel = require('../models/userModel')
 const mockCoworkings = require('../coworkings')
 
 // Option: Passing parameters separately (other dialects)
@@ -11,10 +12,8 @@ const sequelize = new Sequelize('bx_coworkings', 'root', '', {
 });
 
 const Coworking = CoworkingModel(sequelize);
+const User = UserModel(sequelize);
 
-// (() => {
-
-// })()
 sequelize.sync({ force: true })
     .then(() => {
         mockCoworkings.forEach(coworking => {
@@ -33,4 +32,4 @@ sequelize.authenticate()
     .then(() => console.log('La connexion à la base de données a bien été établie.'))
     .catch(error => console.error(`Impossible de se connecter à la base de données ${error}`))
 
-module.exports = { sequelize, Coworking }
+module.exports = { sequelize, Coworking, User }
