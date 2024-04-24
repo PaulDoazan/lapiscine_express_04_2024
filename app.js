@@ -1,12 +1,10 @@
 const express = require('express')
-const morgan = require('morgan')
 const app = express()
 const port = 5000
 
 require("./db/sequelizeSetup")
 
 app
-    .use(morgan('dev'))
     .use(express.json())
 
 const coworkingRouter = require('./routes/coworkingRoutes')
