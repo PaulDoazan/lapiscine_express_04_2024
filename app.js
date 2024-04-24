@@ -9,7 +9,7 @@ require("./db/sequelizeSetup")
 app
     .use(morgan('dev'))
     .use(express.json())
-    .use(cookieParser());
+// .use(cookieParser());
 
 const coworkingRouter = require('./routes/coworkingRoutes')
 const userRouter = require('./routes/userRoutes')
