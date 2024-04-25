@@ -21,4 +21,9 @@ const createUser = async (req, res) => {
     }
 }
 
-module.exports = { findAllUsers, findUserByPk, createUser }
+const updateSelf = async (req, res) => {
+    console.log(req.userId)
+    res.json({ message: 'update yourself' })
+}
+
+module.exports = { findAllUsers, findUserByPk, createUser, updateSelf }

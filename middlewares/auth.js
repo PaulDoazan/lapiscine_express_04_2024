@@ -11,7 +11,7 @@ const protect = (req, res, next) => {
     // 2. On vérifie la validité du token
     try {
         const decoded = jwt.verify(token, SECRET_KEY);
-        console.log(decoded.userId)
+        req.userId = decoded.userId
         next()
     } catch (error) {
         console.log(error)
