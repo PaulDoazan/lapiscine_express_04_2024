@@ -1,5 +1,6 @@
 const { User } = require("../db/sequelizeSetup")
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken');
 
 const login = async (req, res) => {
     // 1. vérifions que l'utilisateur qui tente de se connecter existe bien dans la bdd
@@ -18,12 +19,12 @@ const login = async (req, res) => {
             return res.status(400).json({ message: "Invalid Credentials" })
         }
 
+        const token = jwt.sign({ salut: 'tout le monde' }, "secretkey");
         // Si correct, on envoie un message "login réussi"
-        res.cookie("access_token", "monpetitcookie").json({ message: "Login réussi" })
+        res.cookie("access_token", token).json({ message: "Login réussi" })
     } catch (error) {
         res.status(500).json({ message: `Une erreur est survenue` })
     }
-
 }
 
 module.exports = { login }
