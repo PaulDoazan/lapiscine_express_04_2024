@@ -1,6 +1,6 @@
 const express = require('express')
 const { findAllUsers, findUserByPk, createUser } = require('../controllers/userController')
-const { login } = require('../controllers/authController')
+const { login, logout } = require('../controllers/authController')
 const router = express.Router()
 
 router
@@ -14,6 +14,10 @@ router
 router
     .route('/login')
     .post(login)
+
+router
+    .route('/logout')
+    .post(logout)
 
 router
     .route('/:id')

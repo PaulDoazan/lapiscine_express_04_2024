@@ -21,7 +21,7 @@ router
 router
     .route('/:id')
     .get(findCoworkingByPk)
-    .put(updateCoworking)
-    .delete(deleteCoworking)
+    .put(protect, updateCoworking)
+    .delete(protect, deleteCoworking)
 
 module.exports = router
