@@ -1,5 +1,5 @@
 const express = require('express')
-const { findAllUsers, findUserByPk, createUser, updateSelf } = require('../controllers/userController')
+const { findAllUsers, findUserByPk, createUser, updateProfile, updateUser } = require('../controllers/userController')
 const { login, logout } = require('../controllers/authController')
 const { protect } = require('../middlewares/auth')
 const router = express.Router()
@@ -14,13 +14,12 @@ router
 
 router
     .route('/profile')
-    .put(protect, updateSelf)
-
+    .put(protect, updateProfile)
 
 
 // updateUser pour superadmin
 // updateUser où chaque utilisateur peut modifier ses données, pas de req.params.id
-// deleteUser
+// deleteUser pour superadmin
 
 router
     .route('/login')
@@ -33,5 +32,6 @@ router
 router
     .route('/:id')
     .get(findUserByPk)
+    .put(protect, updateUser)
 
 module.exports = router
