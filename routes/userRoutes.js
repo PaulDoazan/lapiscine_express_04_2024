@@ -32,6 +32,8 @@ router
 router
     .route('/:id')
     .get(findUserByPk)
-    .put(protect, updateUser)
+    .put(protect, updateUser) // restrictTo('superadmin')
+
+
 
 module.exports = router
