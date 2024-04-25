@@ -13,7 +13,7 @@ router
     .post(createUser)
 
 router
-    .route('/update')
+    .route('/profile')
     .put(protect, updateSelf)
 
 
