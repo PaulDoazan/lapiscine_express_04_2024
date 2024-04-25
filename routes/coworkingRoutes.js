@@ -7,11 +7,12 @@ const {
     updateCoworking,
     deleteCoworking,
     searchCoworkings } = require('../controllers/coworkingControllers')
+const { protect } = require('../middlewares/auth')
 
 router
     .route('/')
     .get(findAllCoworkings)
-    .post(createCoworking)
+    .post(protect, createCoworking)
 
 router
     .route('/search')

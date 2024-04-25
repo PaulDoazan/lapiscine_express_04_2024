@@ -1,5 +1,6 @@
 const { Coworking } = require('../db/sequelizeSetup')
 const { errorValidationConstraint } = require('../errorHandler/errorValidationConstraint')
+const jwt = require('jsonwebtoken');
 
 const findAllCoworkings = async (req, res) => {
     // A l'aide de req.query, on ajoute une fonction de recherche de Coworking sur critère du nom
@@ -42,6 +43,9 @@ const findCoworkingByPk = async (req, res) => {
 const createCoworking = async (req, res) => {
     // Si on a un token valide dans les cookies du client, alors on a le droit de créer un coworking
     try {
+        const decoded = jwt.verify(req.cookies.access_token, 'secretkey');
+        console.log(decoded)
+
         const newCoworking = await Coworking.create(req.body)
         res.status(201).json({ message: `Un coworking a bien été ajouté`, data: newCoworking })
     } catch (error) {
