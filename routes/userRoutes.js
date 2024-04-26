@@ -31,6 +31,4 @@ router
     .put(protect, updateUser) // restrictTo('superadmin')
     .delete(protect, deleteUser) // restrictTo('superadmin')
 
-
-
 module.exports = router

@@ -8,7 +8,7 @@ const login = async (req, res) => {
     // 1. vérifions que l'utilisateur qui tente de se connecter existe bien dans la bdd
     // S'il n'existe pas, on renvoie une réponse d'erreur
     try {
-        const result = await User.findOne({ where: { username: req.body.username } })
+        const result = await User.scope('withPassword').findOne({ where: { username: req.body.username } })
         if (result === null) {
             return res.status(404).json({ message: `Invalid Credentials` })
         }
