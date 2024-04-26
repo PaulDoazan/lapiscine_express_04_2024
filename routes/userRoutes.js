@@ -13,7 +13,7 @@ router
     .post(createUser)
 
 router
-    .route('/profile')
+    .route('/profile/')
     .put(protect, updateProfile)
 
 

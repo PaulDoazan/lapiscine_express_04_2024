@@ -39,6 +39,8 @@ const updateUser = async (req, res) => {
 }
 
 const updateProfile = async (req, res) => {
+    // 1 récupérer la ligne de l'utilisateur au sein de la table User, sans le req.params.id
+    // 2 on modifie les propriétés fournies dans le req.body
     console.log(req.userId)
     res.json({ message: 'update' })
 }
