@@ -1,6 +1,6 @@
 const { UniqueConstraintError, ValidationError } = require("sequelize")
 
-const errorValidationConstraint = (error, res) => {
+const errorHandler = (error, res) => {
     if (error instanceof UniqueConstraintError) {
         // patch de la dépendance sequelize : sur des erreurs d'unicité, on ne récupère pas le message indiqué dans le Model 
         // On récupère nous-mêmes la réponse sql de la bdd en cas d'erreur, on parse la chaîne de caractère en ne récupérant que le dernier élement (username, name, email...)
@@ -15,4 +15,4 @@ const errorValidationConstraint = (error, res) => {
     res.status(500).json({ message: `Une erreur est survenue` })
 }
 
-module.exports = { errorValidationConstraint }
+module.exports = { errorHandler }
