@@ -45,7 +45,7 @@ const createCoworking = async (req, res) => {
         const newCoworking = await Coworking.create(req.body)
         res.status(201).json({ message: `Un coworking a bien été ajouté`, data: newCoworking })
     } catch (error) {
-        errorValidationConstraint(error, res, "Nom de coworking")
+        errorValidationConstraint(error, res)
     }
 }
 
@@ -58,7 +58,7 @@ const updateCoworking = async (req, res) => {
         await result.update(req.body)
         res.status(201).json({ message: 'Coworking modifié', data: result })
     } catch (error) {
-        errorValidationConstraint(error, res, "Nom de coworking")
+        errorValidationConstraint(error, res)
     }
 }
 
