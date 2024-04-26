@@ -18,6 +18,13 @@ module.exports = (sequelize) => {
             },
             password: {
                 type: DataTypes.STRING
+            },
+            address: {
+                type: DataTypes.JSON
+            },
+            // validation de mail
+            email: {
+                type: DataTypes.STRING
             }
         },
         {
