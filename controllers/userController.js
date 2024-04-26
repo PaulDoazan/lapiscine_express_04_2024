@@ -73,6 +73,7 @@ const deleteProfile = async (req, res) => {
     // 1. récupérer la ligne de l'utilisateur au sein de la table User, sans le req.params.id
     try {
         const result = await User.findByPk(req.userId);
+        console.log('find in deleProfile controller', result)
         await result.destroy()
         // result.password = "hidden"
         res.clearCookie('access_token').status(200).json({ message: 'Utilisateur supprimé', data: result })

@@ -16,13 +16,14 @@ const protect = async (req, res, next) => {
 
         // On vérifie que l'id contenu dans le token correspond toujours à un utilisateur dans la bdd
         const result = await User.findByPk(decoded.userId)
+        // console.log(result)
         if (!result) {
             return res.status(404).json({ message: `L'utilisateur n'existe pas` })
         }
+
         req.userId = decoded.userId
         next()
     } catch (error) {
-        console.log(error)
         return res.status(401).json({ message: "Jeton non valide" })
     }
 }
