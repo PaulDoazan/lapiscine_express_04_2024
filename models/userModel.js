@@ -24,7 +24,13 @@ module.exports = (sequelize) => {
             },
             // validation de mail
             email: {
-                type: DataTypes.STRING
+                type: DataTypes.STRING,
+                unique: true,
+                validate: {
+                    isEmail: {
+                        msg: "email incorrect",
+                    }
+                },
             }
         },
         {
