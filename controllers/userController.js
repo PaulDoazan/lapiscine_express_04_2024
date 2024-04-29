@@ -1,4 +1,4 @@
-const { User } = require("../db/sequelizeSetup")
+const { User, Role } = require("../db/sequelizeSetup")
 const bcrypt = require('bcrypt');
 const { errorHandler } = require("../errorHandler/errorHandler")
 
@@ -14,6 +14,11 @@ const createUser = async (req, res) => {
     try {
         const hashPassword = await bcrypt.hash(req.body.password, 5)
         req.body.password = hashPassword
+
+        if (req.body.RoleId) {
+            return res.status(403).json({ message: 'Droit non modifiable' })
+        }
+
         const result = await User.create(req.body)
 
         res.json({ message: `Utilisateur créé`, data: result })
@@ -24,8 +29,7 @@ const createUser = async (req, res) => {
 
 const updateUser = async (req, res) => {
     try {
-        const result = await User.findByPk(req.params.id);
-        console.log(result)
+        const result = await User.findByPk(req.params.id, { include: Role });
         if (!result) {
             return res.status(404).json({ message: `L'utilisateur n'existe pas` })
         }
@@ -33,6 +37,12 @@ const updateUser = async (req, res) => {
             const hash = await bcrypt.hash(req.body.password, 8)
             req.body.password = hash
         }
+
+        // On évite l'attribution d'un droit supérieur à ses propres droits
+        if (req.body.RoleId) {
+            if (req.body.RoleId < req.user.RoleId) return res.status(403).json({ message: "Droits insuffisants pour mise à jour" })
+        }
+
         await result.update(req.body)
 
         res.status(201).json({ message: 'Utilisateur modifié', data: result })
@@ -58,11 +68,16 @@ const deleteUser = async (req, res) => {
 const updateProfile = async (req, res) => {
     // 1. récupérer la ligne de l'utilisateur au sein de la table User, sans le req.params.id
     try {
-        const result = await User.findByPk(req.userId);
+        const result = await User.findByPk(req.user.id, { include: Role });
         if (req.body.password) {
             const hash = await bcrypt.hash(req.body.password, 8)
             req.body.password = hash
         }
+
+        if (req.body.RoleId) {
+            return res.status(403).json({ message: 'Droit non modifiable' })
+        }
+
         // 2. on modifie les propriétés fournies dans le req.body
         await result.update(req.body)
 
@@ -75,14 +90,17 @@ const updateProfile = async (req, res) => {
 const deleteProfile = async (req, res) => {
     // 1. récupérer la ligne de l'utilisateur au sein de la table User, sans le req.params.id
     try {
-        const result = await User.findByPk(req.userId);
-        console.log('find in deleProfile controller', result)
+        const result = await User.findByPk(req.user.id);
         await result.destroy()
         res.clearCookie('access_token').status(200).json({ message: 'Utilisateur supprimé', data: result })
     } catch (error) {
         errorHandler(error, res)
     }
 }
+
+// On évite la possibilité de mettre son propre RoleId dans createUser
+// On évite de mettre un droit supérieur à son propre droit dans updateUser
+// On évite de mettre à jour son RoleId dans updateProfile
 
 
 

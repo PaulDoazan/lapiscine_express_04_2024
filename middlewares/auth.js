@@ -9,17 +9,6 @@ const rolesHierarchy = {
     superadmin: ['superadmin', 'admin', 'user']
 }
 
-// const identity = {
-//     name: 'Paul',
-//     age: 35
-// }
-
-// identity.age === identity[1] === identiy["age"]
-
-console.log(rolesHierarchy['superadmin'])
-
-
-
 const protect = async (req, res, next) => {
     // 1. On vérifie la présence du token
     const token = req.cookies.access_token
@@ -32,50 +21,28 @@ const protect = async (req, res, next) => {
         const decoded = jwt.verify(token, SECRET_KEY);
 
         // On vérifie que l'id contenu dans le token correspond toujours à un utilisateur dans la bdd
-        const result = await User.findByPk(decoded.userId)
+        const result = await User.findByPk(decoded.userId, { include: Role })
         if (!result) {
             return res.status(404).json({ message: `Vous n'êtes pas authentifié` })
         }
 
-        req.userId = decoded.userId
+        req.user = result
         next()
     } catch (error) {
         return res.status(401).json({ message: "Jeton non valide" })
     }
 }
 
-/**
- * ON ENCAPSULE LA FONCTION POUR RECUPERER UN ARGUMENT SUPPLEMENTAIRE, AUTRE QUE CELUI FOURNI DANS LA FONCTION CALLBACK
- * const btnSubmit = document.querySelector('.btn')
-
-    const onClickBtn = (myArg) => {
-        return (event) => {
-            console.log(myArg + event.type)
-        }
-    }
-
-    btnSubmit.addEventListener('click', onClickBtn("Jean-Louis"))
- */
-
 const restrictTo = (labelRole) => {
     return async (req, res, next) => {
         try {
-            // 1. on récupère l'utilisateur courant grace au req.userId
-            const result = await User.findByPk(req.userId, { include: Role });
-            // 2. on compare le role de l'utilisateur courant avec le role passé en paramètre
-
-            // COMPARAISON INSUFFISANTE : un superadmin ne peut pas faire ce que fait un admin
-            // if (result.Role.label !== labelRole) {
-            //     return res.status(403).json({ message: "Droits insuffisants" })
-            // }
-
-            if (!rolesHierarchy[result.Role.label].includes(labelRole)) {
+            if (!rolesHierarchy[req.user.Role.label].includes(labelRole)) {
                 return res.status(403).json({ message: "Droits insuffisants" })
             }
 
             next()
         } catch (error) {
-            errorHandler(error)
+            errorHandler(error, res)
         }
     }
 }
