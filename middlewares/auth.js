@@ -3,6 +3,23 @@ const { SECRET_KEY } = require('../configs/privatekey');
 const { User, Role } = require('../db/sequelizeSetup');
 const { errorHandler } = require('../errorHandler/errorHandler');
 
+const rolesHierarchy = {
+    user: ['user'],
+    admin: ['admin', 'user'],
+    superadmin: ['superadmin', 'admin', 'user']
+}
+
+// const identity = {
+//     name: 'Paul',
+//     age: 35
+// }
+
+// identity.age === identity[1] === identiy["age"]
+
+console.log(rolesHierarchy['superadmin'])
+
+
+
 const protect = async (req, res, next) => {
     // 1. On vérifie la présence du token
     const token = req.cookies.access_token
@@ -44,11 +61,15 @@ const restrictTo = (labelRole) => {
     return async (req, res, next) => {
         try {
             // 1. on récupère l'utilisateur courant grace au req.userId
-            const result = await User.findByPk(req.userId);
+            const result = await User.findByPk(req.userId, { include: Role });
             // 2. on compare le role de l'utilisateur courant avec le role passé en paramètre
-            // User.findByPk(req.userId)
-            const role = await Role.findByPk(result.RoleId)
-            if (role.id !== labelRole) {
+
+            // COMPARAISON INSUFFISANTE : un superadmin ne peut pas faire ce que fait un admin
+            // if (result.Role.label !== labelRole) {
+            //     return res.status(403).json({ message: "Droits insuffisants" })
+            // }
+
+            if (!rolesHierarchy[result.Role.label].includes(labelRole)) {
                 return res.status(403).json({ message: "Droits insuffisants" })
             }
 
