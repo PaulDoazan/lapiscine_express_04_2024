@@ -26,4 +26,8 @@ const protect = async (req, res, next) => {
     }
 }
 
+const restrictTo = () => {
+
+}
+
 module.exports = { protect }

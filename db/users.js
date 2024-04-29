@@ -4,14 +4,16 @@ const users = [
         username: "pauldoazan",
         password: "mdp",
         address: { "number": "12", "street": "rue des Capucins", "postCode": 33000, "city": "Bordeaux" },
-        email: "paul.doazan@example.com"
+        email: "paul.doazan@example.com",
+        RoleId: 1
     },
     {
         id: 2,
         username: "mathildedoazan",
         password: "mdp",
         address: { "number": "6", "street": "rue Victor Hugo", "postCode": 33000, "city": "Bordeaux" },
-        email: "mathilde.doazan@example.com"
+        email: "mathilde.doazan@example.com",
+        RoleId: 2
     },
     {
         id: 3,
