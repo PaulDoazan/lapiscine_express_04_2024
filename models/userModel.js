@@ -43,6 +43,14 @@ module.exports = (sequelize) => {
                 withPassword: {
                     attributes: {}
                 }
+            },
+            hooks: {
+                afterCreate: (record) => {
+                    delete record.dataValues.password;
+                },
+                afterUpdate: (record) => {
+                    delete record.dataValues.password;
+                },
             }
         },
     );

@@ -15,7 +15,7 @@ const createUser = async (req, res) => {
         const hashPassword = await bcrypt.hash(req.body.password, 5)
         req.body.password = hashPassword
         const result = await User.create(req.body)
-        result.password = "hidden"
+
         res.json({ message: `Utilisateur créé`, data: result })
     } catch (error) {
         errorHandler(error, res)
@@ -34,7 +34,7 @@ const updateUser = async (req, res) => {
             req.body.password = hash
         }
         await result.update(req.body)
-        result.password = "hidden"
+
         res.status(201).json({ message: 'Utilisateur modifié', data: result })
     } catch (error) {
         errorHandler(error, res)
@@ -65,7 +65,7 @@ const updateProfile = async (req, res) => {
         }
         // 2. on modifie les propriétés fournies dans le req.body
         await result.update(req.body)
-        result.password = "hidden"
+
         res.status(201).json({ message: 'Utilisateur modifié', data: result })
     } catch (error) {
         errorHandler(error, res)

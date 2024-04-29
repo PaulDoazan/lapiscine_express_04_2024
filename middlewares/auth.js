@@ -27,6 +27,19 @@ const protect = async (req, res, next) => {
     }
 }
 
+/**
+ * ON ENCAPSULE LA FONCTION POUR RECUPERER UN ARGUMENT SUPPLEMENTAIRE, AUTRE QUE CELUI FOURNI DANS LA FONCTION CALLBACK
+ * const btnSubmit = document.querySelector('.btn')
+
+    const onClickBtn = (myArg) => {
+        return (event) => {
+            console.log(myArg + event.type)
+        }
+    }
+
+    btnSubmit.addEventListener('click', onClickBtn("Jean-Louis"))
+ */
+
 const restrictTo = (labelRole) => {
     return async (req, res, next) => {
         try {
@@ -35,7 +48,7 @@ const restrictTo = (labelRole) => {
             // 2. on compare le role de l'utilisateur courant avec le role passé en paramètre
             // User.findByPk(req.userId)
             const role = await Role.findByPk(result.RoleId)
-            if (role.label !== labelRole) {
+            if (role.id !== labelRole) {
                 return res.status(403).json({ message: "Droits insuffisants" })
             }
 
