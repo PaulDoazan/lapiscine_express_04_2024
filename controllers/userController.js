@@ -15,6 +15,7 @@ const createUser = async (req, res) => {
         const hashPassword = await bcrypt.hash(req.body.password, 5)
         req.body.password = hashPassword
         const result = await User.create(req.body)
+        result.password = "hidden"
         res.json({ message: `Utilisateur créé`, data: result })
     } catch (error) {
         errorHandler(error, res)
@@ -24,6 +25,7 @@ const createUser = async (req, res) => {
 const updateUser = async (req, res) => {
     try {
         const result = await User.findByPk(req.params.id);
+        console.log(result)
         if (!result) {
             return res.status(404).json({ message: `L'utilisateur n'existe pas` })
         }
@@ -32,6 +34,7 @@ const updateUser = async (req, res) => {
             req.body.password = hash
         }
         await result.update(req.body)
+        result.password = "hidden"
         res.status(201).json({ message: 'Utilisateur modifié', data: result })
     } catch (error) {
         errorHandler(error, res)
@@ -62,7 +65,7 @@ const updateProfile = async (req, res) => {
         }
         // 2. on modifie les propriétés fournies dans le req.body
         await result.update(req.body)
-        // result.password = "hidden"
+        result.password = "hidden"
         res.status(201).json({ message: 'Utilisateur modifié', data: result })
     } catch (error) {
         errorHandler(error, res)
@@ -75,7 +78,6 @@ const deleteProfile = async (req, res) => {
         const result = await User.findByPk(req.userId);
         console.log('find in deleProfile controller', result)
         await result.destroy()
-        // result.password = "hidden"
         res.clearCookie('access_token').status(200).json({ message: 'Utilisateur supprimé', data: result })
     } catch (error) {
         errorHandler(error, res)
