@@ -3,18 +3,20 @@ const morgan = require('morgan')
 const cookieParser = require('cookie-parser')
 const cors = require('cors')
 
-
 const app = express()
 const port = 5000
 
 require("./db/sequelizeSetup")
 
+// const corsOptions = {
+//     credentials: true,
+// };
+
 app
-    .use(cors())
+    // .use(cors(corsOptions))
     .use(express.json())
     .use(morgan('dev'))
     .use(cookieParser())
-
 
 const coworkingRouter = require('./routes/coworkingRoutes')
 const userRouter = require('./routes/userRoutes')

@@ -2,12 +2,27 @@ const { User, Role } = require("../db/sequelizeSetup")
 const bcrypt = require('bcrypt');
 const { errorHandler } = require("../errorHandler/errorHandler")
 
-const findAllUsers = (req, res) => {
-    res.json({ message: 'Hello utilisateur!' })
+const findAllUsers = async (req, res) => {
+    // try {
+    //     const result = await User.findAll()
+    //     res.json({ data: result })
+    // } catch (error) {
+    //     errorHandler(error, res)
+    // }
+    res.json({})
 }
 
-const findUserByPk = (req, res) => {
-    res.json({ message: `Utilisateur n°${req.params.id}` })
+const findUserByPk = async (req, res) => {
+    // try {
+    //     const result = await User.findByPk(req.params.id, { include: Role })
+    //     if (!result) {
+    //         return res.json({ message: 'Utilisateur non trouvé' })
+    //     }
+    //     res.json({ data: result })
+    // } catch (error) {
+    //     errorHandler(error, res)
+    // }
+    res.json({})
 }
 
 const createUser = async (req, res) => {
