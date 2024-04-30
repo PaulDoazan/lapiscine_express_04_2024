@@ -1,4 +1,4 @@
-const { Coworking } = require('../db/sequelizeSetup')
+const { Coworking } = require('../sequelize')
 const { errorHandler } = require('../errorHandler/errorHandler')
 
 const findAllCoworkings = async (req, res) => {

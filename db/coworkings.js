@@ -6,7 +6,6 @@ const coworkings = [
         picture: "",
         superficy: 1400,
         capacity: 122,
-        created: new Date()
     },
     {
 
@@ -16,7 +15,6 @@ const coworkings = [
         picture: "",
         superficy: 95,
         capacity: 45,
-        created: new Date()
     },
     {
         name: "Oasis",
@@ -25,7 +23,6 @@ const coworkings = [
         picture: "",
         superficy: 200,
         capacity: 27,
-        created: new Date()
     },
     {
 
@@ -35,7 +32,6 @@ const coworkings = [
         picture: "",
         superficy: 1850,
         capacity: 130,
-        created: new Date()
     },
     {
 
@@ -45,7 +41,6 @@ const coworkings = [
         picture: "",
         superficy: 300,
         capacity: 253,
-        created: new Date()
     },
     {
 
@@ -55,7 +50,6 @@ const coworkings = [
         picture: "",
         superficy: 600,
         capacity: 136,
-        created: new Date()
     },
     {
         name: "Digital Village",
@@ -64,7 +58,6 @@ const coworkings = [
         picture: "",
         superficy: 150,
         capacity: 52,
-        created: new Date()
     },
     {
 
@@ -74,7 +67,6 @@ const coworkings = [
         picture: "",
         superficy: 200,
         capacity: 205,
-        created: new Date()
     },
     {
 
@@ -84,7 +76,6 @@ const coworkings = [
         picture: "",
         superficy: 400,
         capacity: 50,
-        created: new Date()
     },
     {
         name: "WIGI - Wilson",
@@ -93,7 +84,6 @@ const coworkings = [
         picture: "",
         superficy: 220,
         capacity: 152,
-        created: new Date()
     },
     {
 
@@ -103,7 +93,6 @@ const coworkings = [
         picture: "",
         superficy: 600,
         capacity: 50,
-        created: new Date()
     }
 ];
 

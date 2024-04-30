@@ -6,7 +6,7 @@ const cors = require('cors')
 const app = express()
 const port = 5000
 
-require("./db/sequelizeSetup")
+require("./sequelize")
 
 // const corsOptions = {
 //     credentials: true,

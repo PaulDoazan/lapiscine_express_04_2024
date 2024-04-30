@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const { SECRET_KEY } = require('../configs/privatekey');
-const { User, Role } = require('../db/sequelizeSetup');
+const { User, Role } = require('../sequelize');
 const { errorHandler } = require('../errorHandler/errorHandler');
 
 const rolesHierarchy = {

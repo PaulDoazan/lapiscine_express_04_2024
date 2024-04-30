@@ -1,4 +1,4 @@
-const { User, Role } = require("../db/sequelizeSetup")
+const { User, Role } = require("../sequelize")
 const bcrypt = require('bcrypt');
 const { errorHandler } = require("../errorHandler/errorHandler")
 
