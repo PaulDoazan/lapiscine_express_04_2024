@@ -4,9 +4,12 @@ const cookieParser = require('cookie-parser')
 const cors = require('cors')
 
 const app = express()
-const port = 5000
+
+const port = process.env.PORT || 5000
 
 require("./db/sequelizeSetup")
+
+console.log(process.env.NODE_ENV)
 
 // const corsOptions = {
 //     credentials: true,
@@ -15,8 +18,11 @@ require("./db/sequelizeSetup")
 app
     // .use(cors(corsOptions))
     .use(express.json())
-    .use(morgan('dev'))
     .use(cookieParser())
+
+if (process.env.NODE_ENV === "development") {
+    app.use(morgan('dev'))
+}
 
 const coworkingRouter = require('./routes/coworkingRoutes')
 const userRouter = require('./routes/userRoutes')
