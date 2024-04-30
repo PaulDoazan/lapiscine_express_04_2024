@@ -1,16 +1,14 @@
 const express = require('express')
 const router = express.Router()
+const { createReview, findAllReviews, findReviewByPk } = require('../controllers/reviewController')
 
 router
     .route('/')
-    .get((req, res) => {
-        res.json({ message: 'Hello Commentaire!' })
-    })
+    .get(findAllReviews)
+    .post(createReview)
 
 router
     .route('/:id')
-    .get((req, res) => {
-        res.json({ message: `Commentaire n°${req.params.id}` })
-    })
+    .get(findReviewByPk)
 
 module.exports = router
