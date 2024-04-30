@@ -27,6 +27,9 @@ Role.hasMany(User, {
 });
 User.belongsTo(Role);
 
+User.hasMany(Coworking)
+Coworking.belongsTo(User)
+
 sequelize.sync({ force: true })
     .then(() => {
         mockCoworkings.forEach(coworking => {
