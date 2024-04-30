@@ -53,9 +53,9 @@ const updateUser = async (req, res) => {
             req.body.password = hash
         }
 
-        // On évite l'attribution d'un droit supérieur à ses propres droits
+        // On évite l'attribution d'un droit supérieur à ses propres droits et la modification d'un utilisateur supérieur
         if (req.body.RoleId) {
-            if (req.body.RoleId < req.user.RoleId) return res.status(403).json({ message: "Droits insuffisants pour mise à jour" })
+            if (result.RoleId < req.user.RoleId || req.body.RoleId < req.user.RoleId) return res.status(403).json({ message: "Droits insuffisants pour mise à jour" })
         }
 
         await result.update(req.body)
