@@ -32,6 +32,20 @@ User.belongsTo(Role);
 User.hasMany(Coworking)
 Coworking.belongsTo(User)
 
+Coworking.hasMany(Review, {
+    foreignKey: {
+        allowNull: false,
+    },
+})
+Review.belongsTo(Coworking)
+
+User.hasMany(Review, {
+    foreignKey: {
+        allowNull: false,
+    },
+})
+Review.belongsTo(User)
+
 sequelize.sync({ force: true })
     .then(() => {
         mockCoworkings.forEach(coworking => {

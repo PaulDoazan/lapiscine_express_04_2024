@@ -23,10 +23,7 @@ const login = async (req, res) => {
 
         const token = jwt.sign({ userId: result.id }, SECRET_KEY, { expiresIn: '24h' });
         // Si correct, on envoie un message "login réussi"
-        res.cookie("access_token", token, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
-        }).json({ message: "Login réussi" })
+        res.cookie("access_token", token).json({ message: "Login réussi" })
     } catch (error) {
         errorHandler(error, res)
     }
