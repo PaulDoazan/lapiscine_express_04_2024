@@ -3,9 +3,18 @@
   "version": "1.0.0",
   "description": "crud",
   "main": "app.js",
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
+  },
   "scripts": {
+    "test": "cross-env NODE_ENV=test jest --testTimeout=10000",
+    "pretest": "cross-env NODE_ENV=test npm run db:reset",
+    "db:create:test": "cross-env NODE_ENV=test npx sequelize-cli db:create",
     "start": "npx nodemon app.js",
-    "db:reset": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all"
+    "db:reset": "cross-env NODE_ENV=test npx sequelize-cli db:drop && cross-env NODE_ENV=test npx sequelize-cli db:create && cross-env NODE_ENV=test npx sequelize-cli db:migrate && cross-env NODE_ENV=test npx sequelize-cli db:seed:all"
   },
   "author": "Paul Doazan",
   "license": "ISC",
@@ -13,6 +22,7 @@
     "bcrypt": "^5.1.1",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
     "mariadb": "^3.3.0",
@@ -20,8 +30,10 @@
     "sequelize": "^6.37.3"
   },
   "devDependencies": {
+    "jest": "^29.7.0",
     "morgan": "^1.10.0",
     "nodemon": "^3.1.0",
-    "sequelize-cli": "^6.6.2"
+    "sequelize-cli": "^6.6.2",
+    "supertest": "^7.0.0"
   }
 }

@@ -1,19 +1,24 @@
 // CONFIG DB
 const { Sequelize } = require('sequelize');
-const bcrypt = require('bcrypt')
 const CoworkingModel = require('./models/coworkingModel')
 const UserModel = require('./models/userModel')
 const RoleModel = require('./models/roleModel')
-const mockCoworkings = require('./db/coworkings');
-const mockUsers = require('./db/users');
+const env = process.env.NODE_ENV || 'development';
+const config = require('./config/config.json')[env];
 
 
 // Option: Passing parameters separately (other dialects)
-const sequelize = new Sequelize('bx_coworkings', 'root', '', {
-    host: 'localhost',
-    dialect: 'mariadb',
-    logging: false
-});
+let sequelize;
+if (config.use_env_variable) {
+    sequelize = new Sequelize(process.env[config.use_env_variable], config);
+} else {
+    sequelize = new Sequelize(config.database, config.username, config.password, config);
+}
+// const sequelize = new Sequelize('bx_coworkings', 'root', '', {
+//     host: 'localhost',
+//     dialect: 'mariadb',
+//     logging: false
+// });
 
 const Coworking = CoworkingModel(sequelize);
 const User = UserModel(sequelize);
