@@ -3,25 +3,25 @@ const bcrypt = require('bcrypt');
 const { errorHandler } = require("../errorHandler/errorHandler")
 
 const findAllUsers = async (req, res) => {
-    // try {
-    //     const result = await User.findAll()
-    //     res.json({ data: result })
-    // } catch (error) {
-    //     errorHandler(error, res)
-    // }
+    try {
+        const result = await User.findAll()
+        res.json({ data: result })
+    } catch (error) {
+        errorHandler(error, res)
+    }
     res.json({})
 }
 
 const findUserByPk = async (req, res) => {
-    // try {
-    //     const result = await User.findByPk(req.params.id, { include: Role })
-    //     if (!result) {
-    //         return res.json({ message: 'Utilisateur non trouvé' })
-    //     }
-    //     res.json({ data: result })
-    // } catch (error) {
-    //     errorHandler(error, res)
-    // }
+    try {
+        const result = await User.findByPk(req.params.id, { include: Role })
+        if (!result) {
+            return res.json({ message: 'Utilisateur non trouvé' })
+        }
+        res.json({ data: result })
+    } catch (error) {
+        errorHandler(error, res)
+    }
     res.json({})
 }
 
