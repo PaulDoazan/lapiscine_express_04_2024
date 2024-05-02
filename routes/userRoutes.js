@@ -231,7 +231,7 @@ router
     /**
     * @openapi
     * /api/users/{id}:
-    *   update:
+    *   put:
     *     summary: Update the user by id, restricted to admin
     *     tags: [Users]
     *     parameters:
