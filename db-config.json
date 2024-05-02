@@ -1,0 +1,16 @@
+{
+    "development": {
+        "username": "root",
+        "password": null,
+        "database": "bx_coworkings",
+        "host": "127.0.0.1",
+        "dialect": "mariadb"
+    },
+    "production": {
+        "username": "bl8so0g5ej02f096",
+        "password": "eura8rp0uyhsvdih",
+        "database": "qb9f0x1126boeocv",
+        "host": "iu51mf0q32fkhfpl.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
+        "dialect": "mariadb"
+    }
+}
