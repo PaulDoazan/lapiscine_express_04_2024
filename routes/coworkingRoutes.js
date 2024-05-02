@@ -42,95 +42,6 @@
  *         updatedAt: 2020-03-10T04:05:06.157Z
  */
 
-/**
- * @openapi
- * tags:
- *   name: Coworkings
- *   description: The coworkings managing API
- * /api/coworkings:
- *   post:
- *     summary: Create a new coworking
- *     tags: [Coworkings]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/Coworking'
- *     responses:
- *       200:
- *         description: The created coworking.
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Coworking'
- *       500:
- *         description: Some server error
- * /books/{id}:
- *   get:
- *     summary: Get the book by id
- *     tags: [Books]
- *     parameters:
- *       - in: path
- *         name: id
- *         schema:
- *           type: string
- *         required: true
- *         description: The book id
- *     responses:
- *       200:
- *         description: The book response by id
- *         contens:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Book'
- *       404:
- *         description: The book was not found
- *   put:
- *    summary: Update the book by the id
- *    tags: [Books]
- *    parameters:
- *      - in: path
- *        name: id
- *        schema:
- *          type: string
- *        required: true
- *        description: The book id
- *    requestBody:
- *      required: true
- *      content:
- *        application/json:
- *          schema:
- *            $ref: '#/components/schemas/Book'
- *    responses:
- *      200:
- *        description: The book was updated
- *        content:
- *          application/json:
- *            schema:
- *              $ref: '#/components/schemas/Book'
- *      404:
- *        description: The book was not found
- *      500:
- *        description: Some error happened
- *   delete:
- *     summary: Remove the book by id
- *     tags: [Books]
- *     parameters:
- *       - in: path
- *         name: id
- *         schema:
- *           type: string
- *         required: true
- *         description: The book id
- *
- *     responses:
- *       200:
- *         description: The book was deleted
- *       404:
- *         description: The book was not found
- */
-
 const express = require('express')
 const router = express.Router()
 const {
@@ -144,17 +55,154 @@ const { protect } = require('../middlewares/auth')
 
 router
     .route('/')
+    /**
+    * @openapi
+    * /api/coworkings:
+    *   get:
+    *     summary: Get all coworkings
+    *     tags: [Coworkings]
+    *     responses:
+    *       200:
+    *         description: The list of coworkings.
+    *         content:
+    *           application/json:
+    *             schema:
+    *               $ref: '#/components/schemas/Coworking'
+    *       500:
+    *         description: Some server error 
+    */
     .get(findAllCoworkings)
+    /**
+    * @openapi
+    * tags:
+    *   name: Coworkings
+    *   description: The coworkings managing API
+    * /api/coworkings:
+    *   post:
+    *     summary: Create a new coworking
+    *     tags: [Coworkings]
+    *     requestBody:
+    *       required: true
+    *       content:
+    *         application/json:
+    *           schema:
+    *             $ref: '#/components/schemas/Coworking'
+    *     responses:
+    *       200:
+    *         description: The created coworking.
+    *         content:
+    *           application/json:
+    *             schema:
+    *               $ref: '#/components/schemas/Coworking'
+    *       500:
+    *         description: Some server error 
+    */
     .post(protect, createCoworking)
 
 router
     .route('/search')
+    /**
+    * @openapi
+    * /api/coworkings/search:
+    *   get:
+    *     summary: Get a list of coworkings that match with search parameters
+    *     tags: [Coworkings]
+    *     parameters:
+    *        - in: query
+    *          name: name
+    *          schema:               
+    *          type: string
+    *          description: The string that could match in any coworkings name
+    *     responses:
+    *       200:
+    *         description: The coworking response by id
+    *         contents:
+    *           application/json:
+    *             schema:
+    *               $ref: '#/components/schemas/Coworking'
+    *       404:
+    *         description: The coworking was not found
+    */
     .get(searchCoworkings)
 
 router
     .route('/:id')
+    /**
+    * @openapi
+    * /api/coworkings/{id}:
+    *   get:
+    *     summary: Get the coworking by id
+    *     tags: [Coworkings]
+    *     parameters:
+    *       - in: path
+    *         name: id
+    *         schema:
+    *           type: string
+    *         required: true
+    *         description: The coworking id
+    *     responses:
+    *       200:
+    *         description: The coworking response by id
+    *         contents:
+    *           application/json:
+    *             schema:
+    *               $ref: '#/components/schemas/Coworking'
+    *       404:
+    *         description: The coworking was not found
+    */
     .get(findCoworkingByPk)
+    /**
+    * @openapi
+    * /api/coworkings/{id}:
+    *   put:
+    *    summary: Update the coworking by the id
+    *    tags: [Coworkings]
+    *    parameters:
+    *      - in: path
+    *        name: id
+    *        schema:
+    *          type: string
+    *        required: true
+    *        description: The coworking id
+    *    requestBody:
+    *      required: true
+    *      content:
+    *        application/json:
+    *          schema:
+    *            $ref: '#/components/schemas/Coworking'
+    *    responses:
+    *      200:
+    *        description: The coworking was updated
+    *        content:
+    *          application/json:
+    *            schema:
+    *              $ref: '#/components/schemas/Coworking'
+    *      404:
+    *        description: The coworking was not found
+    *      500:
+    *        description: Some error happened
+    */
     .put(protect, updateCoworking)
+    /**
+    * @openapi
+    * /api/coworkings/{id}:
+    *  delete:
+    *     summary: Remove the coworking by id
+    *     tags: [Coworkings]
+    *     parameters:
+    *       - in: path
+    *         name: id
+    *         schema:
+    *           type: string
+    *         required: true
+    *         description: The coworking id
+    *
+    *     responses:
+    *       200:
+    *         description: The coworking was deleted
+    *       404:
+    *         description: The coworking was not found
+    */
     .delete(protect, deleteCoworking)
 
 module.exports = router
