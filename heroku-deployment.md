@@ -5,7 +5,7 @@
 
 ## Variables d'environnement
 4. Différencier les commandes pour exécuter l'API (local / en production) dans **`package.json`** : 
-```
+```js
 // On retire nodemon en production
 "scripts": {
     "start": "node app.js",
@@ -16,17 +16,16 @@
 7. Définir l'environnement d'exécution de nos scripts grace à la variable globale `process`, avec sa propriété `process.env` qui est accessible de manière globale dans tous nos fichiers
 9. On installe le package cross-env afin de définir les environnements d'exécution dans nos scripts du **`package.json`** **`npm install cross-env`** **`NODE_ENV=production`**
 
-```
+```js
 // On retire nodemon en production
 "scripts": {
     "start": "cross-env NODE_ENV=production node app.js",
     "dev": "cross-env NODE_ENV=development nodemon app.js"
   }
-
 ```
 
 Dans le fichier racine, on retire également en production `app.use(morgan(’dev’))`
-```
+```js
 if (process.env.NODE_ENV  ===  "development") {
 	const  morgan  =  require('morgan')
 	app.use(morgan('dev'))
@@ -49,7 +48,6 @@ const  sequelize  =  new  Sequelize(config.database, config.username, config.pas
 	dialect:  config.dialect,
 	logging:  false
 });
-
 ```
 
 16.  On retire le paramètre `force: true` → `sequelize.sync()` qui permet en développement de rafraîchir/écraser notre bdd à chaque modification de notre code
@@ -67,3 +65,4 @@ credentials:  true,
 };
 // ...
 app.use(cors(corsOptions))
+```
