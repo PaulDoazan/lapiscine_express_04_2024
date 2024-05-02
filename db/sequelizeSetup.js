@@ -7,12 +7,14 @@ const RoleModel = require('../models/roleModel')
 const mockCoworkings = require('./coworkings');
 const mockUsers = require('./users');
 const reviewModel = require('../models/reviewModel');
+const env = process.env.NODE_ENV;
+const config = require('../configs/db-config.json')[env];
 
 
 // Option: Passing parameters separately (other dialects)
-const sequelize = new Sequelize('bx_coworkings', 'root', '', {
-    host: 'localhost',
-    dialect: 'mariadb',
+const sequelize = new Sequelize(config.database, config.username, config.password, {
+    host: config.host,
+    dialect: config.dialect,
     logging: false
 });
 
@@ -46,7 +48,9 @@ User.hasMany(Review, {
 })
 Review.belongsTo(User)
 
-sequelize.sync({ force: true })
+const resetDb = process.env.NODE_ENV === "development"
+
+sequelize.sync({ force: resetDb })
     .then(() => {
         mockCoworkings.forEach(coworking => {
             Coworking.create(coworking)
