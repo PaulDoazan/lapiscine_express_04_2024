@@ -33,6 +33,10 @@ app.use('/api/coworkings', coworkingRouter)
 app.use('/api/users', userRouter)
 app.use('/api/reviews', reviewRouter)
 
+app.get('*', (req, res) => {
+    res.status(404).json({ message: "Page not found" })
+})
+
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 })
