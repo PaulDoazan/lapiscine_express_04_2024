@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const { SECRET_KEY } = require('../configs/privatekey');
-const { User, Role } = require('../db/sequelizeSetup');
+const { User, Role, Review } = require('../db/sequelizeSetup');
 const { errorHandler } = require('../errorHandler/errorHandler');
 
 const rolesHierarchy = {
@@ -47,9 +47,29 @@ const restrictTo = (labelRole) => {
     }
 }
 
-const restrictToOwnUser = (req, res, next) => {
-    // On va tester si l'utilisateur qui tente de faire une requête est bien l'auteur de la ressource
+const restrictToOwnUser = (model) => {
+    return async (req, res, next) => {
+        try {
+            const result = await model.findByPk(req.params.id)
+            if (!result) return res.status(404).json({ message: 'ressource non trouvée' })
 
+            if (rolesHierarchy[req.user.Role.label].includes("admin")) {
+                return next()
+            }
+
+            if (result.UserId !== req.user.id) {
+                return res.status(403).json({ message: 'Non autorisé' })
+            }
+
+            next()
+        } catch (error) {
+            errorHandler(error, res)
+        }
+
+
+        // On va tester si l'utilisateur qui tente de faire une requête est bien l'auteur de la ressource
+
+    }
 }
 
 module.exports = { protect, restrictTo, restrictToOwnUser }
