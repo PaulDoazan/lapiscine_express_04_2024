@@ -6,10 +6,14 @@
  *       type: object
  *       required:
  *         - name
+ *         - UserId
  *       properties:
  *         id:
  *           type: integer
- *           description: The auto-generated id of the coworking
+ *           description: The id of the coworking, auto-generated
+ *         UserId:
+ *           type: integer
+ *           description: The id of the user who owns the coworking, auto-generated
  *         name:
  *           type: string
  *           description: The name of your coworking
@@ -28,11 +32,11 @@
  *         createdAt:
  *           type: string
  *           format: date
- *           description: The date the coworking was added
+ *           description: The date the coworking was added, auto-generated
  *         updatedAt:
  *           type: string
  *           format: date
- *           description: The date the coworking was updated
+ *           description: The date the coworking was updated, auto-generated
  *       example:
  *         id: 12
  *         name: Oasis Coworking

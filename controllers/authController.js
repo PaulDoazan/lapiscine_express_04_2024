@@ -10,7 +10,7 @@ const login = async (req, res) => {
     try {
         const result = await User.scope('withPassword').findOne({ where: { username: req.body.username } })
         if (result === null) {
-            return res.status(404).json({ message: `Invalid Credentials` })
+            return res.status(400).json({ message: `Invalid Credentials` })
         }
 
         // 2. On compare le mot de passe fourni dans le formulaire (dans le req.body) avec le mot de passe contenu dans la bdd
