@@ -1,8 +1,6 @@
 const express = require('express')
 const morgan = require('morgan')
 const cookieParser = require('cookie-parser')
-const swaggerJsdoc = require("swagger-jsdoc")
-const swaggerUi = require("swagger-ui-express")
 const cors = require('cors')
 
 const app = express()
@@ -10,8 +8,6 @@ const app = express()
 const port = process.env.PORT || 5000
 
 require("./db/sequelizeSetup")
-
-console.log(process.env.NODE_ENV)
 
 const corsOptions = {
     credentials: true,
