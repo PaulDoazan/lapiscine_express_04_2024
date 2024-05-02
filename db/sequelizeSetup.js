@@ -8,7 +8,7 @@ const mockCoworkings = require('./coworkings');
 const mockUsers = require('./users');
 const reviewModel = require('../models/reviewModel');
 const env = process.env.NODE_ENV;
-const config = require('../db-config.json')[env];
+const config = require('../configs/db-config.json')[env];
 
 
 // Option: Passing parameters separately (other dialects)
