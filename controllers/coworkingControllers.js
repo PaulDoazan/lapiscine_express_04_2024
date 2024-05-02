@@ -63,6 +63,18 @@ const createCoworking = async (req, res) => {
     }
 }
 
+const createCoworkingWithImg = async (req, res) => {
+    console.log(req.protocol, req.get('host'), req.file.filename)
+    try {
+        req.body.UserId = req.user.id
+        req.body.imageUrl = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+        const newCoworking = await Coworking.create(req.body)
+        res.status(201).json({ message: `Un coworking a bien été ajouté`, data: newCoworking })
+    } catch (error) {
+        errorHandler(error, res)
+    }
+}
+
 const updateCoworking = async (req, res) => {
     try {
         const result = await Coworking.findByPk(req.params.id);
@@ -92,6 +104,7 @@ const deleteCoworking = async (req, res) => {
 module.exports = {
     findAllCoworkings,
     createCoworking,
+    createCoworkingWithImg,
     findCoworkingByPk,
     updateCoworking,
     deleteCoworking,
