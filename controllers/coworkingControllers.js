@@ -20,7 +20,6 @@ const findAllCoworkingsRawSQL = async (req, res) => {
         })
         res.json({ data: result })
     } catch (error) {
-        console.log(error)
         errorHandler(error, res)
     }
 }
