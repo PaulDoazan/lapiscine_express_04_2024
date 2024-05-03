@@ -24,7 +24,7 @@ describe('Create Coworking resource', () => {
 })
 
 describe('Create Coworking with short name', () => {
-    it('should fail with wrong password', async () => {
+    it('should fail with wrong name', async () => {
         let body = {
             name: 'Co'
         };

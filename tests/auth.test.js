@@ -13,7 +13,7 @@ describe('Login with wrong username', () => {
     })
 })
 
-describe('Login with wrong username', () => {
+describe('Login with wrong password', () => {
     it('should fail with wrong password', async () => {
         let body = {
             username: 'pauldoazan',
@@ -25,10 +25,10 @@ describe('Login with wrong username', () => {
     })
 })
 
-describe('User API', () => {
-    it('should show all users', async () => {
+describe('Login suceessful', () => {
+    it('Login success', async () => {
         let body = {
-            username: 'mathildedoazan',
+            username: 'pauldoazan',
             password: 'mdp',
         };
         const signInResponse = await request(app).post('/api/users/login').send(body);
