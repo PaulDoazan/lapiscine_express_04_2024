@@ -24,7 +24,6 @@ if (process.env.NODE_ENV === "development") {
 const coworkingRouter = require('./routes/coworkingRoutes')
 const userRouter = require('./routes/userRoutes')
 const reviewRouter = require('./routes/reviewRoutes')
-const swagger = require('./configs/swagger')
 
 app.get('/', (req, res) => {
     res.json({ message: 'Homepage' })
@@ -37,6 +36,7 @@ app.use('/api/reviews', reviewRouter)
 // route de fichiers static
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
+const swagger = require('./configs/swagger')
 swagger(app)
 
 app.get('*', (req, res) => {
