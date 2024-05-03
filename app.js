@@ -4,7 +4,6 @@ const cors = require('cors')
 const path = require('path');
 
 const app = express()
-
 const port = process.env.PORT || 5000
 require("./db/sequelizeSetup")
 
@@ -27,7 +26,7 @@ const userRouter = require('./routes/userRoutes')
 const reviewRouter = require('./routes/reviewRoutes')
 
 app.get('/', (req, res) => {
-    res.json({ message: 'Hello World!' })
+    res.json({ message: 'Homepage' })
 })
 
 app.use('/api/coworkings', coworkingRouter)

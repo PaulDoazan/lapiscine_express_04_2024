@@ -35,6 +35,7 @@ module.exports = (sequelize) => {
             }
         },
         {
+            onDelete: 'CASCADE',
             // Par défaut, tous les getters/finders n'ont plus l'attribut password (server -> client), attention aux méthodes qui mettent à jour/créent un password (client -> server)
             defaultScope: {
                 attributes: { exclude: ['password'] }

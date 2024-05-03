@@ -55,6 +55,7 @@ module.exports = (sequelize) => {
             },
         },
         {
+            onDelete: 'CASCADE'
             // Other model options go here
         },
     );
