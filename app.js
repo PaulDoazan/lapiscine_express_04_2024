@@ -8,12 +8,12 @@ const port = 5000
 
 require("./sequelize")
 
-// const corsOptions = {
-//     credentials: true,
-// };
+const corsOptions = {
+    credentials: true,
+};
 
 app
-    // .use(cors(corsOptions))
+    .use(cors(corsOptions))
     .use(express.json())
     .use(morgan('dev'))
     .use(cookieParser())

@@ -34,7 +34,7 @@ describe('Create Coworking with short name', () => {
     })
 })
 
-describe('Create Coworking with no na;e', () => {
+describe('Create Coworking with no name', () => {
     it('should fail', async () => {
         let body = {
             capacity: 90,
