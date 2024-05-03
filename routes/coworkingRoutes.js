@@ -111,7 +111,6 @@ router
     .route('/rawSQL')
     .get(findAllCoworkingsRawSQL)
 
-
 router
     .route('/withImg')
     .post(protect, multer, createCoworkingWithImg)
