@@ -45,8 +45,9 @@
 
 const express = require('express')
 const router = express.Router()
-const { protect } = require('../middlewares/auth')
+const { protect, restrictToOwnUser } = require('../middlewares/auth')
 const { createReview, findAllReviews, findReviewByPk, updateReview, deleteReview } = require('../controllers/reviewController')
+const { Review } = require('../db/sequelizeSetup')
 
 router
     .route('/')
@@ -140,7 +141,7 @@ router
     *       404:
     *         description: The review was not found
     */
-    .put(protect, updateReview)
+    .put(protect, restrictToOwnUser(Review), updateReview)
     /**
     * @openapi
     * /api/reviews/{id}:
@@ -164,6 +165,6 @@ router
     *       404:
     *         description: The review was not found
     */
-    .delete(protect, deleteReview)
+    .delete(protect, restrictToOwnUser(Review), deleteReview)
 
 module.exports = router

@@ -54,8 +54,12 @@ const {
     findCoworkingByPk,
     updateCoworking,
     deleteCoworking,
+    findAllCoworkingsRawSQL,
+    createCoworkingWithImg,
     searchCoworkings } = require('../controllers/coworkingControllers')
-const { protect } = require('../middlewares/auth')
+const { protect, restrictToOwnUser } = require('../middlewares/auth')
+const multer = require('../middlewares/multer-config')
+const { Coworking } = require('../db/sequelizeSetup')
 
 router
     .route('/')
@@ -103,6 +107,14 @@ router
     */
     .post(protect, createCoworking)
 
+router
+    .route('/rawSQL')
+    .get(findAllCoworkingsRawSQL)
+
+
+router
+    .route('/withImg')
+    .post(protect, multer, createCoworkingWithImg)
 router
     .route('/search')
     /**
@@ -186,7 +198,7 @@ router
     *      500:
     *        description: Some error happened
     */
-    .put(protect, updateCoworking)
+    .put(protect, restrictToOwnUser(Coworking), updateCoworking)
     /**
     * @openapi
     * /api/coworkings/{id}:
@@ -207,6 +219,6 @@ router
     *       404:
     *         description: The coworking was not found
     */
-    .delete(protect, deleteCoworking)
+    .delete(protect, restrictToOwnUser(Coworking), deleteCoworking)
 
 module.exports = router
